@@ -1,0 +1,21 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: |
+      echo "🚀 Setting up Hyperledger Fabric environment..."
+      curl -sSLO https://raw.githubusercontent.com/hyperledger/fabric/main/scripts/install-fabric.sh
+      chmod +x install-fabric.sh
+      ./install-fabric.sh docker binary
+      echo 'export PATH=$PATH:~/bin' >> ~/.bashrc
+      source ~/.bashrc
+  - command: |
+      echo "✅ Setup complete! You can now run Fabric commands."
+      echo "Available commands: peer, configtxgen, cryptogen"
+      peer version
+
+ports:
+  - port: 5984
+    onOpen: ignore
+  - port: 3000
+    onOpen: open-preview
